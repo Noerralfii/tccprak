@@ -14,69 +14,53 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${BASE_URL}/login`, formData, {
-        withCredentials: true,
-      });
-
+      const res = await axios.post(`${BASE_URL}/login`, formData);
       localStorage.setItem("token", res.data.accessToken);
-      alert("Login berhasil! Selamat datang di Naws Notes ✨");
+      alert("Berhasil login! Selamat datang kembali ✨");
       navigate("/notes");
     } catch (err) {
-      const message =
-        err.response?.data?.message ||
-        err.response?.data?.msg ||
-        "Login gagal. Periksa kembali username/password.";
-      alert(message);
+      alert(err.response?.data?.message || "Login gagal. Periksa kembali username/password.");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 via-pink-100 to-blue-200 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-cyan-100 to-sky-200 px-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-purple-200 flex flex-col items-center text-center space-y-6"
+        className="w-full max-w-md bg-white p-10 rounded-xl shadow-xl flex flex-col items-center space-y-6"
       >
-        <h1 className="text-3xl font-extrabold text-purple-700">
-          ~~~~~~~~~~~~Login ke{" "}
-          <span style={{ color: "#6a0572", fontWeight: "700" }}>
-            Naws Notes~~~~~~~~~~~~
-          </span>
-        </h1>
-        <p className="text-sm text-gray-600 max-w-xs">
-          Masukkan username dan password kamu untuk melanjutkan!
-        </p>
+        <h1 className="text-2xl font-bold text-cyan-700">Login ke Naws Notes</h1>
+        <p className="text-gray-600 text-sm">Masukkan informasi login Anda untuk melanjutkan</p>
 
         <input
           type="text"
           name="username"
-          placeholder="👤 Username"
+          placeholder="Username"
           value={formData.username}
           onChange={handleChange}
           required
-          className="w-4/5 p-3 text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 mx-auto"
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
         <input
           type="password"
           name="password"
-          placeholder="🔒 Password"
+          placeholder="Password"
           value={formData.password}
           onChange={handleChange}
           required
-          className="w-4/5 p-3 text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 mx-auto"
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
+
         <button
           type="submit"
-          className="w-4/5 bg-purple-600 text-white font-bold py-2 rounded-md hover:bg-purple-700 transition mx-auto"
+          className="w-full bg-cyan-600 text-white py-2 rounded-md font-semibold hover:bg-cyan-700 transition"
         >
           Login
         </button>
 
-        <p className="text-sm text-gray-600">
-          Belum punya akun?{" "}
-          <Link
-            to="/register"
-            className="text-blue-600 hover:underline font-semibold"
-          >
+        <p className="text-sm text-gray-500">
+          Belum punya akun?{' '}
+          <Link to="/register" className="text-cyan-700 hover:underline font-medium">
             Daftar di sini
           </Link>
         </p>
