@@ -29,7 +29,8 @@ app.use(express.json());
 
 // ✅ Routing langsung di root
 app.use("/api", NotesRoute);
-app.use(UserRoute);
+app.use("/api", UserRoute);
+
 
 // ✅ Health Check
 app.get("/health", (req, res) => {
