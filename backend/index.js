@@ -13,15 +13,16 @@ const PORT = process.env.PORT || 8080;
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
+      "https://notes-fe183-dot-e-01-453413.as.r.appspot.com",
       "https://notes-fe183-dot-f-01-450707.uc.r.appspot.com",
-      "https://notes-fe183-dot-e-01-453413.as.r.appspot.com"
+      "http://localhost:3000"
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 // ✅ Middleware
 app.use(cookieParser());
