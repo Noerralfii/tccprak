@@ -7,22 +7,16 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () =>
-  console.log(`🚀 Server berjalan di http://localhost:${PORT}`)
-);
-
+const PORT = process.env.PORT || 8080;
 
 // ✅ Konfigurasi CORS
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://notes-fe183-dot-f-01-450707.uc.r.appspot.com"
-];
-
 app.use(
   cors({
-    origin:origin: "https://notes-fe183-dot-e-01-453413.as.r.appspot.com",
+    origin: [
+      "http://localhost:3000",
+      "https://notes-fe183-dot-f-01-450707.uc.r.appspot.com",
+      "https://notes-fe183-dot-e-01-453413.as.r.appspot.com"
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -33,17 +27,17 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 
-// ✅ Routing langsung di root
+// ✅ Routing
 app.use("/api", NotesRoute);
 app.use("/api", UserRoute);
-
 
 // ✅ Health Check
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", message: "Server is running" });
 });
 
-// ✅ Start Server
-app.listen(PORT, () =>
-  console.log(`🚀 Server berjalan di http://localhost:${PORT}`)
-);
+// ✅ Start Server (hanya sekali!)
+app.listen(PORT, () => {
+  console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
+});
+
