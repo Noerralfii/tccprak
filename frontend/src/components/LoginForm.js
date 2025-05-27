@@ -14,12 +14,19 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${BASE_URL}/login`, formData);
+      const res = await axios.post(`${BASE_URL}/login`, formData, {
+        withCredentials: true,
+      });
+
       localStorage.setItem("token", res.data.accessToken);
       alert("Login berhasil! Selamat datang di Naws Notes ✨");
       navigate("/notes");
     } catch (err) {
-      alert(err.response?.data?.message || "Login gagal. Periksa kembali username/password.");
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.msg ||
+        "Login gagal. Periksa kembali username/password.";
+      alert(message);
     }
   };
 
@@ -30,7 +37,10 @@ const LoginForm = () => {
         className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-purple-200 flex flex-col items-center text-center space-y-6"
       >
         <h1 className="text-3xl font-extrabold text-purple-700">
-          ~~~~~~~~~~~~Login ke <span style={{ color: '#6a0572', fontWeight: '700' }}>Naws Notes~~~~~~~~~~~~</span>
+          ~~~~~~~~~~~~Login ke{" "}
+          <span style={{ color: "#6a0572", fontWeight: "700" }}>
+            Naws Notes~~~~~~~~~~~~
+          </span>
         </h1>
         <p className="text-sm text-gray-600 max-w-xs">
           Masukkan username dan password kamu untuk melanjutkan!
@@ -63,7 +73,10 @@ const LoginForm = () => {
 
         <p className="text-sm text-gray-600">
           Belum punya akun?{" "}
-          <Link to="/register" className="text-blue-600 hover:underline font-semibold">
+          <Link
+            to="/register"
+            className="text-blue-600 hover:underline font-semibold"
+          >
             Daftar di sini
           </Link>
         </p>
