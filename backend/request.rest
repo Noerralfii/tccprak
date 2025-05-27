@@ -47,9 +47,9 @@ POST http://localhost:5000/create-users
 Content-Type: application/json
 
 {
-  "username": "nanaa",
-  "email": "nana@example.com",
-  "password": "123456"
+  "username": "masterari",
+  "email": "ari123@example",
+  "password": "master"
 }
 
 ###
